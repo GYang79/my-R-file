@@ -1,0 +1,107 @@
+        ---
+title: "Assignment of Stat421"
+output: html_document
+
+* Name:Guangming Yang; NetID: gyang79
+
+
+Revise this [graphics.Rmd](graphics.Rmd) file to produce the graphs and answer the questions below. Include reasonable labels (titles, axis labels, legends, etc.) with each graph. Please do not do statistical analysis of these questions--we'll get to that soon. Today's exercise just uses graphs. Please use **boldface** (by enclosing text in `** ... **`) when writing your answers so that we can find them easily.
+
+At the end of class, one person from each group should submit a completed copy of this file. (Please don't submit multiple copies.)
+
+We'll grade this exercise by opening your "graphics.Rmd" file, clicking "Knit HTML", and reading the output. We'll assign points as follows:
+
+* No submission: 0/5
+* Poor work: 3/5
+* Good work: 5/5 (even if incomplete--there's more to do here than can be done in 75 minutes)
+
+### Air quality
+Consider the built-in data frame, `airquality`. Make a graph with four panels (two rows and two columns) to show each air quality variable against the day number (from 1 to 153) in the study. Which of the four variables seems to be affected most by the changing seasons? 
+
+```{r}
+air=airquality
+air$Day = 1:153
+m = matrix(c(1,2,3,4),nrow = 2,byrow = F)
+layout(m)
+plot(air$Ozone~air$Day, main='Ozone- time')
+plot(air$Solar.R~air$Day,main='Solar radiation- time')
+plot(air$Wind~air$Day, main='Wind speed- time')
+plot(air$Temp~air$Day,main='Temperature- time')
+layout(matrix(data=1, nrow=1, ncol=1))
+```
+
+**Answer：**
+ 
+ **According to the graph above, It's obvious that temperature has a clear trend to arise or fall in different periods, and the others don't show such logic, because their points seem to distribute randomly when time varies**
+
+Make one graph of the temperatures grouped by month. According to your graph, which month was the warmest? Which month had the most uniform temperature?
+
+```{r}
+boxplot(air$Temp~factor(air$Month),main='The temperature boxplot grouped by months',ylab='Temperature',xlab='Month',col='blue')
+```
+
+**Answer:**
+
+**According to the graph, the highest average temperature is July, but the warmest day is in August.**
+**And since the July has the least interquartile range, we can assume it has the least variance, which indicates the uniform teperature.**
+Does Ozone tend to increase, decrease, or stay the same as Solar.R increases? Does Ozone tend to increase, decrease, or stay the same as Wind increases? Does Ozone tend to increase, decrease, or stay the same as Temp increases? Make one figure to support your answer to all three questions.
+
+```{r}
+plot(air$Solar.R,air$Ozone,col='red',pch=19,xlab = 'Value of different variables',ylab = 'Ozone',main = 'the variation of Ozone')
+points(17*air$Wind,air$Ozone,col='black',pch=17)
+points(air$Temp^1.2,air$Ozone,col="blue",pch=15)
+legend(x='topright', legend=c('Solar radiation','Wind','Temperature'),pch=c(19,17,15),col=c('red','black','blue'))
+```
+
+**Answer:**
+
+**We make some rescaling of the x-value, to make these three feature can be put in one graph, but it doesn't influence our judgement, From the graph:**
+
+* #####Ozone tends to partially increase as Solar radiation increases, but it's not very clear because there are still lots of low Ozone points.
+
+* #####It's very clear that Ozone tends to decrease as Wind speed increases.
+
+* #####Ozone also has a tendency to increase as temperature inceases.
+
+### Normal approximation to binomial
+The binomial distribution of the number, $x$, of successes in $n$ independent trials, each having probability $p$ of success, is approximated by the normal distribution with mean $\mu=np$ and variance $\sigma^2=np(1-p)$. That is, Bin$(n,p) \approx N(np, np(1-p))$. Make a graph showing the Bin$(n,p)$ probability mass function and the $N(np, np(1-p))$ probability density curve. Choose values of $n$ and $p$ for which the approximation looks good.
+
+```{r}
+```
+
+### $Z$-score vs. $T$-score
+A $Z$-score calculated as $Z=\frac{X-\mu}{\sigma/\sqrt{n}}$ has the normal distribution with mean 0 and standard deviation 1: $Z \sim N(0,1)$.
+A $T$-score calculated as $T = \frac{X-\mu}{s/\sqrt{n}}$ has the Student's $t$ distribution with $n-1$ degrees of freedom: $T \sim t_{n-1}$. The $t_{n-1}$ density curve is shorter with thicker tails than the $N(0, 1)$ density because $s$ varies more than $\sigma$ (a constant). However, the former density approaches the latter as $n$ increases. Make a graph of three probability density curves:
+
+* $N(0,1)$ (a solid line)
+* $t_{6-1}$ (a dotted line)
+* $t_{30-1}$ (a dashed line)
+
+For each curve, make a vertical line (of the same type as the curve's line type) from the $x$-axis to the curve at the point $x$ that cuts off off right-tail area 0.025.
+
+```{r}
+```
+
+### Influence of music on wine purchase
+The file [wine.csv](http://www.stat.wisc.edu/~jgillett/327-1/graphics/wine.csv) contains data on wine purchased from a liquor store. Each row corresponds to a bottle of wine purchased. The first column indicates which type of music was playing in the store during the purchase. The second column indicates which type of wine was purchased. Make a graph that gives evidence about the question of whether type of music and type of wine are independent. Do you think they are independent?
+
+```{r}
+```
+
+### Plants
+Look at the built-in data frame `CO2`. Describe the data set (in English and the kind of language used in an introductory statistics course, not in R language). Mention whether it's from an experiment or an observational study and mention which are independent/explanatory variables and which are dependent/response variables.
+
+Make a graph of uptake vs. concentration, coloring the points according to Plant. The relationship between uptake and concentration is roughly the same for each Plant: describe it.
+
+```{r}
+```
+
+Break the previous graph into two parts, one for Quebec and one for Mississippi. Which Type has greater variability in uptake for a given concentration?
+
+```{r}
+```
+
+Break the first graph into two parts, one for nonchilled and one for chilled. Broadly speaking, what is the effect of chilling on uptake?
+
+```{r}
+```
